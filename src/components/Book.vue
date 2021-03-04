@@ -42,6 +42,22 @@
                       <label><strong>Status:</strong></label>
                       {{ currentBook.published ? "Published" : "Pending" }}
                     </div>
+
+                    <div class="form-group">
+                      <label>Cover image</label>
+                      <div v-if="!selectedImage">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          @change="onFileChange(currentBook, $event)"
+                        />
+                      </div>
+                      <div v-else>
+                        <!-- <img :src="currentBook.data" /> -->
+                        <img v-bind:src="selectedImage" width="150px" height="200px" alt=""><br/>
+                        <button @click="removeImage(currentBook)">Remove image</button>
+                      </div>
+                    </div>
                   </form>
 
                   <button
@@ -102,11 +118,29 @@ export default {
       BookDataService.get(id)
         .then((response) => {
           this.currentBook = response.data;
-          console.log(response.data);
+          this.selectedImage = 'data:image/jpeg;base64,' + response.data.data;
         })
         .catch((e) => {
           console.log(e);
         });
+    },
+
+    onFileChange(book, e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(book, files[0]);
+    },
+    createImage(book, file) {
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        book.data = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (book) {
+      book.data = false;
+      this.selectedImage = false;
+      this.currentBook.data = false;
     },
 
     updatePublished(status) {
@@ -116,6 +150,7 @@ export default {
         author: this.currentBook.author,
         description: this.currentBook.description,
         published: status,
+        data: this.currentBook.data,
       };
 
       BookDataService.update(this.currentBook.id, data)

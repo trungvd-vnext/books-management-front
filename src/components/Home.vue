@@ -7,8 +7,6 @@
           <div class="col-md">
             <div class="d-flex border">
               <div class="flex-grow-1 bg-white p-4">
-                <!-- <p class="text-uppercase text-secondary mb-0">Usage</p>
-                                <h3 class="font-weight-bold mb-0">10%</h3> -->
 
                 <div class="list row">
                   <div class="col-md-8">
@@ -98,6 +96,9 @@
                         <label><strong>Status:</strong></label>
                         {{ currentBook.published ? "Published" : "Pending" }}
                       </div>
+                      <div>
+                        <img v-bind:src="currentBook.data" width="150px" height="200px" alt="">
+                      </div><br/>
 
                       <router-link
                         v-bind:to="'/books/' + currentBook.id"
@@ -202,6 +203,7 @@ export default {
     },
 
     setActiveBook(book, index) {
+      book.data = 'data:image/jpeg;base64,' + book.data;
       this.currentBook = book;
       this.currentIndex = index;
     },

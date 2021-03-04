@@ -43,6 +43,20 @@
                       />
                     </div>
 
+                    <div class="form-group">
+                      <label>Select an image</label>
+                      <div v-if="!book.data">
+                        <input
+                          type="file" accept="image/*"
+                          @change="onFileChange(book, $event)"
+                        />
+                      </div>
+                      <div v-else>
+                        <img :src="book.data" />
+                        <button @click="removeImage(book)">Remove image</button>
+                      </div>
+                    </div>
+
                     <button @click="saveBook" class="btn btn-success">
                       Submit
                     </button>
@@ -71,23 +85,41 @@ export default {
   name: "add-book",
   data() {
     return {
-      userInfo: UserInfoStore.state.cognitoInfo,
       book: {
         id: null,
         title: "",
         author: "",
         description: "",
         published: false,
+        data: false,
       },
       submitted: false,
     };
   },
   methods: {
+    onFileChange(book, e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(book, files[0]);
+    },
+    createImage(book, file) {
+      var reader = new FileReader();
+
+      reader.onload = (e) => {
+        book.data = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (book) {
+      book.data = false;
+    },
+
     saveBook() {
       var data = {
         title: this.book.title,
         author: this.book.author,
         description: this.book.description,
+        data: this.book.data
       };
 
       BookDataService.create(data)
@@ -107,11 +139,18 @@ export default {
     },
   },
 };
+
 </script>
 
 <style>
 .submit-form {
   max-width: 300px;
   margin: auto;
+}
+img {
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
 }
 </style>

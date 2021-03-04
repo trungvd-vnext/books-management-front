@@ -6,7 +6,7 @@
           class="navbar-icon d-inline-block align-top"
           src="../../assets/logo.png"
         />
-        <span class="navbar-title">Vnext</span>
+        <span class="navbar-title">Books Management</span>
       </a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
