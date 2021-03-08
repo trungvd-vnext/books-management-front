@@ -7,7 +7,6 @@
           <div class="col-md">
             <div class="d-flex border">
               <div class="flex-grow-1 bg-white p-4">
-
                 <div class="list row">
                   <div class="col-md-8">
                     <div class="input-group mb-3">
@@ -32,7 +31,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12">
+                  <div class="col-md-4">
                     <div class="mb-3">
                       Items per Page:
                       <select
@@ -48,19 +47,12 @@
                         </option>
                       </select>
                     </div>
-
-                    <b-pagination
-                      v-model="page"
-                      :total-rows="count"
-                      :per-page="pageSize"
-                      prev-text="Prev"
-                      next-text="Next"
-                      @change="handlePageChange"
-                    ></b-pagination>
                   </div>
+                </div>
 
-                  <div class="col-md-6">
-                    <h4>Books List</h4>
+                <div class="list row">
+                  <div class="col-md-4">
+                    <h4>BOOKS LIST</h4>
                     <ul class="list-group" id="Home">
                       <li
                         class="list-group-item"
@@ -81,9 +73,9 @@
                     </button>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <div v-if="currentBook">
-                      <h4>Book</h4>
+                      <h4>DETAILED BOOK</h4>
                       <div>
                         <label><strong>Title:</strong></label>
                         {{ currentBook.title }}
@@ -97,8 +89,14 @@
                         {{ currentBook.published ? "Published" : "Pending" }}
                       </div>
                       <div>
-                        <img v-bind:src="currentBook.data" width="150px" height="200px" alt="">
-                      </div><br/>
+                        <img
+                          v-bind:src="currentBook.data"
+                          width="150px"
+                          height="200px"
+                          alt=""
+                        />
+                      </div>
+                      <br />
 
                       <router-link
                         v-bind:to="'/books/' + currentBook.id"
@@ -112,7 +110,18 @@
                       <p>Please click on a Book...</p>
                     </div>
                   </div>
-
+                </div>
+                <div class="list row">
+                  <div class="col-md-8">
+                    <b-pagination
+                      v-model="page"
+                      :total-rows="count"
+                      :per-page="pageSize"
+                      prev-text="Prev"
+                      next-text="Next"
+                      @change="handlePageChange"
+                    ></b-pagination>
+                  </div>
                 </div>
               </div>
             </div>
@@ -141,9 +150,8 @@ export default {
 
       page: 1,
       count: 0,
-      pageSize: 15,
-
-      pageSizes: [15, 20, 30],
+      pageSize: 3,
+      pageSizes: [3, 6, 10],
     };
   },
   methods: {
@@ -203,20 +211,22 @@ export default {
     },
 
     setActiveBook(book, index) {
-      book.data = 'data:image/jpeg;base64,' + book.data;
+      book.data = "data:image/jpeg;base64," + book.image;
       this.currentBook = book;
       this.currentIndex = index;
     },
 
     removeAllBooks() {
-      BookDataService.deleteAll()
-        .then((response) => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      if (confirm("Are you sure you want to delete all items?")) {
+        BookDataService.deleteAll()
+          .then((response) => {
+            console.log(response.data);
+            this.refreshList();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     },
   },
   mounted() {

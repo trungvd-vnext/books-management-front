@@ -10,8 +10,13 @@ class BookDataService {
   }
 
   create(data) {
-    return http.post("/books", data);
+    return http.post("/books", data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
   }
+
 
   update(id, data) {
     return http.put(`/books/${id}`, data);

@@ -53,3 +53,10 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+.navbar-nav > .nav-item > .active {
+  color: aqua;
+  background-color: chartreuse;
+}
+</style>
