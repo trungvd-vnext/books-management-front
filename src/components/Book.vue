@@ -206,6 +206,22 @@ export default {
       if (!this.currentBook.image) return;
 
       if (this.currentBook.image instanceof File) {
+        var fileSize = this.currentBook.image.size / 1024 / 1024;
+        if (fileSize > 5) {
+          alert("File size exceeds 5 MiB");
+          return (this.currentBook.image = null);
+        }
+
+        var fileType = this.currentBook.image.type;
+        if (
+          fileType !== "image/jpeg" ||
+          fileType !== "image/jpeg" ||
+          fileType !== "image/jpeg"
+        ) {
+          alert("Only accept image file input (jpeg, png, gif)");
+          return (this.currentBook.image = null);
+        }
+
         base64Encode(this.currentBook.image)
           .then((value) => {
             this.currentBook.image = value;
