@@ -69,9 +69,12 @@
                           ></span>
                         </template>
                       </b-table>
-                      <div>{{ sortType }}</div>
+                      <!-- <div>{{ sortType }}</div> -->
                       <b-card>
-                        <b-list-group v-if="books.length > 0">
+                        <b-list-group
+                          v-if="books.length > 0"
+                          class="item-align-left"
+                        >
                           <b-list-group-item
                             v-for="(book, index) in books"
                             :class="{ active: index == currentIndex }"
@@ -109,15 +112,15 @@
                     <div v-if="currentBook">
                       <b-card-group deck>
                         <b-card header="DETAILED BOOK">
-                          <div>
+                          <div class="item-align-left">
                             <label><strong>Title:</strong></label>
                             {{ currentBook.title }}
                           </div>
-                          <div>
+                          <div class="item-align-left">
                             <label><strong>Description:</strong></label>
                             {{ currentBook.description }}
                           </div>
-                          <div>
+                          <div class="item-align-left">
                             <label><strong>Status:</strong></label>
                             {{ currentBook.published }}
                           </div>
@@ -348,5 +351,8 @@ export default {
 }
 .sortSpan {
   width: 100%;
+}
+.item-align-left {
+  text-align: left;
 }
 </style>
