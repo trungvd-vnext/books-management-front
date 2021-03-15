@@ -216,8 +216,8 @@ export default {
 
       page: 1,
       count: 0,
-      pageSize: 15,
-      pageSizes: [15, 20, 30],
+      pageSize: 10,
+      pageSizes: [10, 20, 30],
 
       selected: null,
       options: [
@@ -226,17 +226,26 @@ export default {
       ],
 
       fields: [{ key: "heading1", label: "<i>BOOKS LIST</i>", sortable: true }],
+      sortTypeStr: "desc",
     };
   },
 
   methods: {
     changeSortType(sortType) {
       this.sortType = sortType;
-      // this.retrieveBooks();
+      if (this.sortType) this.sortTypeStr = "asc";
+      else this.sortTypeStr = "desc";
+
+      this.retrieveBooks();
     },
 
-    getRequestParams(sort, selected, searchTitle, page, pageSize) {
+    getRequestParams(sortTypeStr, selected, searchTitle, page, pageSize) {
       let params = {};
+
+      if (sortTypeStr) {
+        var str = "id," + sortTypeStr;
+        params["sort"] = [str];
+      }
 
       if (selected) {
         params["selected"] = selected;
@@ -261,7 +270,7 @@ export default {
 
     retrieveBooks() {
       const params = this.getRequestParams(
-        this.sort,
+        this.sortTypeStr,
         this.selected,
         this.searchTitle,
         this.page,

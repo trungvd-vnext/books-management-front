@@ -1,5 +1,4 @@
 import http from "../http-common";
-
 class BookDataService {
   getAll(params) {
     return http.get("/books", { params });
@@ -16,7 +15,6 @@ class BookDataService {
       }
     });
   }
-
 
   update(id, data) {
     return http.put(`/books/${id}`, data);
