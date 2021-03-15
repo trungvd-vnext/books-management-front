@@ -275,7 +275,13 @@ export default {
 
     newBook() {
       this.submitted = false;
-      this.book = {};
+      this.book = {
+        title: null,
+        author: null,
+        description: null,
+        image: null,
+      };
+      this.imageSrc = null;
       this.$v.$reset();
     },
   },
