@@ -66,6 +66,7 @@
                         id="description-input"
                         name="description-input"
                         v-model="$v.book.description.$model"
+                        @input="assertMaxChars()"
                         :state="validateState('description')"
                         aria-describedby="description-input-live-feedback"
                         rows="3"
@@ -167,6 +168,7 @@ export default {
       },
       imageSrc: null,
       submitted: false,
+      maxLengthInCars: 250,
     };
   },
 
@@ -226,6 +228,12 @@ export default {
   methods: {
     clearImage() {
       this.book.image = null;
+    },
+
+    assertMaxChars: function () {
+      if (this.value.length >= this.maxLengthInCars) {
+        this.value = this.value.substring(0, this.maxLengthInCars);
+      }
     },
 
     validateState(title) {
