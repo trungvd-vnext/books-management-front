@@ -113,15 +113,19 @@
                       <b-card-group deck>
                         <b-card header="DETAILED BOOK">
                           <div class="item-align-left">
-                            <label><strong>Title:</strong></label>
+                            <label class="usage">Title:</label>
                             {{ currentBook.title }}
                           </div>
                           <div class="item-align-left">
-                            <label><strong>Description:</strong></label>
+                            <label class="usage">Author:</label>
+                            {{ currentBook.author }}
+                          </div>
+                          <div class="item-align-left">
+                            <label class="usage">Description:</label>
                             {{ currentBook.description }}
                           </div>
                           <div class="item-align-left">
-                            <label><strong>Status:</strong></label>
+                            <label class="usage">Status:</label>
                             {{ currentBook.published }}
                           </div>
                           <div>
@@ -354,5 +358,9 @@ export default {
 }
 .item-align-left {
   text-align: left;
+}
+.usage {
+  font-weight: bold;
+  text-decoration: underline;
 }
 </style>
