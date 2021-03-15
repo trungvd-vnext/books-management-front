@@ -205,8 +205,8 @@ export default {
 
       page: 1,
       count: 0,
-      pageSize: 3,
-      pageSizes: [3, 6, 10],
+      pageSize: 15,
+      pageSizes: [15, 20, 30],
 
       selected: null,
       options: [
@@ -291,14 +291,14 @@ export default {
       return {
         id: book.id,
         title:
-          book.title.length <= 20
+          book.title.length <= 50
             ? book.title
-            : book.title.substr(0, 20) + "...",
+            : book.title.substr(0, 50) + "...",
         author: book.author,
         description:
-          book.description.length <= 50
+          book.description.length <= 150
             ? book.description
-            : book.description.substr(0, 30) + "...",
+            : book.description.substr(0, 150) + "...",
         published: book.published ? "Published" : "Pending",
         image: book.image,
       };
