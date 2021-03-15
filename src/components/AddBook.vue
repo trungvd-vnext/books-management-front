@@ -231,8 +231,11 @@ export default {
     },
 
     assertMaxChars: function () {
-      if (this.value.length >= this.maxLengthInCars) {
-        this.value = this.value.substring(0, this.maxLengthInCars);
+      if (this.book.description.length >= this.maxLengthInCars) {
+        this.book.description = this.book.description.substring(
+          0,
+          this.maxLengthInCars
+        );
       }
     },
 

@@ -112,21 +112,25 @@
                     <div v-if="currentBook">
                       <b-card-group deck>
                         <b-card header="DETAILED BOOK">
-                          <div class="item-align-left">
-                            <label class="usage">Title:</label>
-                            {{ currentBook.title }}
+                          <div class="item-align-left row">
+                            <div class="usage col-md-2">Title:</div>
+                            <div class="col-md-8">{{ currentBook.title }}</div>
                           </div>
-                          <div class="item-align-left">
-                            <label class="usage">Author:</label>
-                            {{ currentBook.author }}
+                          <div class="item-align-left row">
+                            <div class="usage col-md-2">Author:</div>
+                            <div class="col-md-8">{{ currentBook.author }}</div>
                           </div>
-                          <div class="item-align-left">
-                            <label class="usage">Description:</label>
-                            {{ currentBook.description }}
+                          <div class="item-align-left row">
+                            <div class="usage col-md-2">Description:</div>
+                            <div class="col-md-8">
+                              {{ currentBook.description }}
+                            </div>
                           </div>
-                          <div class="item-align-left">
-                            <label class="usage">Status:</label>
-                            {{ currentBook.published }}
+                          <div class="item-align-left row">
+                            <div class="usage col-md-2">Status:</div>
+                            <div class="col-md-8">
+                              {{ currentBook.published }}
+                            </div>
                           </div>
                           <div>
                             <img
